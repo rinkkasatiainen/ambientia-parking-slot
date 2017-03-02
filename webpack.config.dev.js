@@ -1,9 +1,13 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var config = {
+module.exports = {
     devtool: 'source-map',
-    entry: './src/index.js',
+    entry: [
+      'babel-polyfill',
+      'webpack-hot-middleware/client',
+      './src/index.js'
+    ] ,
     output: {
           path: path.join(__dirname, 'public'),
           filename: 'bundle.js'
@@ -13,23 +17,57 @@ var config = {
       new webpack.NoEmitOnErrorsPlugin()
     ],
     module: {
-      rules: [{
-        test : /\.jsx?$/, 
-        exclude : /(node_modules)/,
-        include : path.join(__dirname, 'src'),
-        use : [
+    rules: [
+      // js
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules)/,
+        include: path.join(__dirname, 'src'),
+        use: [
           {
-            loader : 'babel-loader',
-            options : {
-              presets : [
-                
-                'react'
-              ]
+            loader: 'babel-loader',
+            options: {
+              "presets": [
+                [ "es2015", { "modules": false } ],
+                "stage-2",
+                "react"
+              ],
             }
-        }
+          }
         ]
-      }]
-    }
+      },
+      // images
+      {
+        test: /\.(jpe?g|png)$/,
+        exclude: /(node_modules)/,
+        include: path.join(__dirname, 'src'),
+        use: [
+          'file-loader'
+        ]
+
+      },
+      // CSS
+      {
+        test: /\.css$/,
+        exclude: /(node_modules)/,
+        include: path.join(__dirname, 'src'),
+        use: [
+          'style-loader',
+          'css-loader?sourceMap?',
+        ]
+      },
+      // SCSS
+      {
+        test: /\.scss/,
+        exclude: /(node_modules)/,
+        include: path.join(__dirname, 'src'),
+        use: [
+          'style-loader',
+          'css-loader?sourceMap?',
+          'sass-loader?sourceMap'
+        ]
+      }
+    ]
+  } 
 };
 
-module.exports = config;
