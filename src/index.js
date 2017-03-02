@@ -1,13 +1,16 @@
 import React from 'react'
 import {render} from 'react-dom'
+import ParkingSlot from './components/ParkingSlot'
 
 class App extends React.Component {
    render() {
     
      return (
-      <div><p>Hello!</p></div>
+       <ParkingSlot />
      )
    } 
 }
+
+
 
 render(<App />, document.getElementById('root'));
