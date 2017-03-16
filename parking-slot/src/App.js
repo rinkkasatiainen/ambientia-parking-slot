@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actionCreators from './actions/actionCreators';
 import logo from './logo.svg';
 import './App.css';
 
 import ParkingSlot from './components/ParkingSlot'
+
+
 
 class App extends Component {
   render() {
@@ -12,7 +17,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <ParkingSlot />
+        <ParkingSlot { ...this.props }/>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
@@ -21,4 +26,17 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    reservedToday: state.reservedToday,
+    reservedFor : state.reservedFor
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+export const AppCreator = connect( mapStateToProps, mapDispatchToProps )(App)
+
+export default AppCreator;
