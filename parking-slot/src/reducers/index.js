@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux';
 
 function reservedToday(state = false, action){
-    return state;
+    switch(action.type){
+        case 'RESERVE_SLOT':
+            return !state
+        default:
+            return state
+    }
 }
 
 const rootReducer = combineReducers({

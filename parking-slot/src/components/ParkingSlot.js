@@ -3,7 +3,7 @@ import React from 'react'
 class ParkingSlot extends React.Component {
 
     reserve() {
-        console.log('varaa');
+        this.props.reserve()
     }
 
 
