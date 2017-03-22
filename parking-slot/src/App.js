@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ParkingSlot from './components/ParkingSlot';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actionCreators from './actions/actionCreators'
 
 class App extends Component {
   render() {
@@ -11,10 +14,22 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-       <ParkingSlot />
+       <ParkingSlot {...this.props} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        reservedToday : state.reservedToday
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch)
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
