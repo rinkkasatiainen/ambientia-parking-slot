@@ -4,3 +4,10 @@ export function reserve() {
         payload : {}
     }
 }
+
+export function login(email, password) {
+    return {
+        type : 'LOGIN',
+        payload : {email, password}
+    }
+}
