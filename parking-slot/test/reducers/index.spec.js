@@ -9,7 +9,6 @@ describe('reducers', () => {
   
   describe('reservedToday', () => {
     it('should reserve an unreserved slot', () => {
-      console.log(reservedToday)
       const action = reserve() 
       const state = reservedToday(false, action)
       expect(state).to.be.eql(true)
