@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-function reservedToday(state = false, action) {
+export function reservedToday(state = false, action) {
     switch (action.type) {
         case 'RESERVE':
             return !state
