@@ -4,7 +4,8 @@ class LoggedIn extends React.Component {
 
     doLogin(e) {
         e.preventDefault()
-        console.log(this.email.value, this.password.value);
+        return this.props.login(this.email.value, this.password.value);
+
     }
 
     reserve() {
