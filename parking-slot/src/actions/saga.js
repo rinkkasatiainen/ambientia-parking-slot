@@ -10,7 +10,7 @@ function* reserveSlotx( action ){
 }
 
 
-function* loginFlow() {
+export function* loginFlow() {
 	while (true) {
 		const {email, password} = yield take('LOGIN')
 		const {uid, error, ...rest} = yield call (login, email, password )

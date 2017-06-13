@@ -14,6 +14,7 @@ export function makeReservation() {
 }
 
 export function login(email, password) {
+                console.log( email, password )
 	return app.auth().signInWithEmailAndPassword(email, password).
 		then( (result) => {
 			const uid = result.uid
