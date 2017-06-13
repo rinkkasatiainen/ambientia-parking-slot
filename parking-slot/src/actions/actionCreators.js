@@ -10,3 +10,12 @@ export function login(email, password) {
 	email, password
 }
 }
+
+export function loggedIn(uid) {
+
+console.log(uid)
+    return {
+	type: 'LOGGED_IN',
+	uid
+}
+}

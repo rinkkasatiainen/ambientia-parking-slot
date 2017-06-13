@@ -1,7 +1,7 @@
 import React from 'react'
 import { expect } from 'chai'
 
-import { call, take, takeEvery } from 'redux-saga/effects'
+import { call, take, takeEvery, put } from 'redux-saga/effects'
 import {makeReservation, login} from '../../src/base.js'
 import * as sagas from '../../src/actions/saga'
 import * as actionCreators from '../../src/actions/actionCreators'
@@ -34,12 +34,21 @@ describe('sagas', () => {
     it('should call login from base', () => {
       const gen = sagas.loginFlow()
       gen.next()
-      const expected = call(login, email, password)
       const effect = gen.next(action).value
+      const expected = call(login, email, password)
       expect(effect).to.be.eql(expected)
     })
     it('should dispatch an action after login', () => {
-       	
+      const uid = "865678u70987098ioökjökj"
+      const gen = sagas.loginFlow()
+      gen.next()
+      gen.next(action)
+      const loggedInAction = actionCreators.loggedIn(uid)
+      const expected = put ( loggedInAction )
+      const effect = gen.next( {uid} ).value
+
+      console.log( effect, expected)
+      expect(effect).to.be.eql( expected )
     })
 
     it('should do something when login did not succeed')

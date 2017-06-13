@@ -1,5 +1,6 @@
-import { call, takeEvery, takeLatest, take } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest, take } from 'redux-saga/effects'
 import { makeReservation, login } from '../base.js'
+import * as actionCreators from './actionCreators'
 
 export function* reserveSlot( action ){
   yield  call( makeReservation ) 
@@ -14,6 +15,10 @@ export function* loginFlow() {
 	while (true) {
 		const {email, password} = yield take('LOGIN')
 		const {uid, error, ...rest} = yield call (login, email, password )
+		if (uid) {
+			yield put( actionCreators.loggedIn( uid ))
+		}
+
 		console.log('login', uid, error, rest);
 	}    
 }
