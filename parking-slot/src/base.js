@@ -13,12 +13,13 @@ export function makeReservation() {
   console.log('reserved')
 }
 
-export function* login(email, password) {
-	var login = app.auth().signInWithEmailAndPassword(email, password).
+export function login(email, password) {
+	return app.auth().signInWithEmailAndPassword(email, password).
+		then( (result) => {
+			const uid = result.uid
+			return {uid}
+  		}). 
 		catch((error) => {
 			return { error }
-		}).then( (result) => {
-			return result.user
-  		}) 
-	return login
+		})
 }
